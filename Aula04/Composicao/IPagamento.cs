@@ -6,7 +6,7 @@ namespace Composicao
 {
     interface IPagamento : IPagamentoInfo
     {
-        double Valor { get; set; }
+        double Valor { get; }
         void Pagar(double valor);
     }
 }
