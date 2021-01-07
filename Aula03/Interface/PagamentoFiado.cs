@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heranca
+namespace Interface
 {
-    abstract class Pagamento : IPagamento
+    class PagamentoFiado : IPagamento
     {
-        public abstract double ValorASerPago { get; }
-
         public DateTime DataEmissao
         {
             get => dataEmissao;
@@ -19,8 +17,8 @@ namespace Heranca
                 dataEmissao = value;
             }
         }
-        
-        public DateTime DataVencimento 
+
+        public DateTime DataVencimento
         {
             get => dataVencimento;
             set
@@ -34,24 +32,28 @@ namespace Heranca
 
         public DateTime DataPagamento
         {
-            get => dataPagamento; 
-            set => dataPagamento = value; 
+            get => dataPagamento;
+            set => dataPagamento = value;
         }
 
         public double ValorPago { get => valorPago; set => valorPago = value; }
 
-        public void Pagar(double valor)
+        public PagamentoFiadoConsumo[] Consumos { get; set; }
+
+        public double ValorASerPago
         {
-            if (dataPagamento.Year > 1)
-                throw new Exception("Você está tentando pagar uma conta que já foi paga.");
+            get
+            {
+                double total = 0;
 
-            if (valor < ValorASerPago)
-                throw new Exception("Valor insuficiente para pagar a conta.");
+                if (Consumos != null)
+                    foreach (var item in Consumos)
+                        total += item.SubTotal;
 
-            valorPago = valor;
-            dataPagamento = DateTime.Now;
+                return total;
+            }
         }
-        
+
         private DateTime dataVencimento;
         private DateTime dataPagamento;
         private DateTime dataEmissao;

@@ -6,7 +6,7 @@ namespace Heranca
 {
     class PagamentoFiado : Pagamento
     {
-        public PagamentoFiadoConsumo[] Consumo { get; set; }
+        public PagamentoFiadoConsumo[] Consumos { get; set; }
 
         public override double ValorASerPago 
         {
@@ -14,10 +14,10 @@ namespace Heranca
             {
                 double total = 0;
 
-                if (Consumo != null)
-                    foreach (var item in Consumo)
+                if (Consumos != null)
+                    foreach (var item in Consumos)
                         total += item.SubTotal;
-                
+
                 return total;
             }
         }

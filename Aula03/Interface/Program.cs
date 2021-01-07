@@ -1,29 +1,22 @@
 ﻿using System;
 
-/*
-PagamentoBoleto
-    DataVencimento
-    DataPagamento
-    Valor
-    ValorPago
-    LinhaDigitavel
-
-PagamentoFiado
-    DataVencimento
-    DataPagamento
-    Lista de Consumo
-        Cada consumo possui uma descrição, uma quantidade, um valor unitário e um valor total
-    Valor (soma do consumo)
-    ValorPago
-*/
-namespace Heranca
+namespace Interface
 {
     class Program
     {
         static void Main(string[] args)
         {
             var pagamentos = RetornarPagamentos();
+            
             Imprimir(pagamentos);
+
+            Console.WriteLine("Pagando tudo...");
+
+            foreach (var item in pagamentos)
+                item.Pagar(1000);
+            
+            Imprimir(pagamentos);
+
             Console.ReadKey();
         }
 
@@ -31,7 +24,8 @@ namespace Heranca
         {
             foreach (var item in pagamentos)
             {
-                Console.WriteLine($"Pagamento: {item.ValorASerPago:C2} em {item.DataVencimento.ToShortDateString()}");
+                Console.Write($"Pagamento: {item.ValorASerPago:C2} em {item.DataVencimento.ToShortDateString()}");
+                Console.WriteLine($", data pagamento: {item.DataPagamento.ToShortDateString()}, valor pago: {item.ValorPago:C2}");
             }
         }
 
@@ -45,7 +39,7 @@ namespace Heranca
                 {
                     DataVencimento = hoje.AddDays(10),
                     LinhaDigitavel = "123",
-                    Valor = 123.45
+                    ValorASerPago = 123.45
                 },
                 new PagamentoFiado
                 {
