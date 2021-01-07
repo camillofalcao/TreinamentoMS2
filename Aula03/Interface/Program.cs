@@ -33,18 +33,17 @@ namespace Interface
         {
             var hoje = DateTime.Now.Date;
 
-            return new IPagamento[]
+            var boleto = new PagamentoBoleto
             {
-                new PagamentoBoleto
-                {
-                    DataVencimento = hoje.AddDays(10),
-                    LinhaDigitavel = "123",
-                    ValorASerPago = 123.45
-                },
-                new PagamentoFiado
-                {
-                    DataVencimento = hoje.AddDays(30),
-                    Consumos = new PagamentoFiadoConsumo[]
+                DataVencimento = hoje.AddDays(10),
+                LinhaDigitavel = "123",
+                ValorASerPago = 123.45
+            };
+
+            var fiado = new PagamentoFiado
+            {
+                DataVencimento = hoje.AddDays(30),
+                Consumos = new PagamentoFiadoConsumo[]
                     {
                         new PagamentoFiadoConsumo
                         {
@@ -59,7 +58,12 @@ namespace Interface
                             ValorUnitario = 5
                         }
                     }
-                }
+            };
+
+            return new IPagamento[]
+            {
+                boleto,
+                fiado
             };
         }
     }

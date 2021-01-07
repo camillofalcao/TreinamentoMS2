@@ -54,6 +54,18 @@ namespace Interface
             }
         }
 
+        public void Pagar(double valor)
+        {
+            if (DataPagamento.Year > 1)
+                throw new Exception("Você está tentando pagar uma conta que já foi paga.");
+
+            if (valor < ValorASerPago)
+                throw new Exception("Valor insuficiente para pagar a conta.");
+
+            ValorPago = valor;
+            DataPagamento = DateTime.Now;
+        }
+
         private DateTime dataVencimento;
         private DateTime dataPagamento;
         private DateTime dataEmissao;
