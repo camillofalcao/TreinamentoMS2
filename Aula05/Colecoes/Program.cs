@@ -1,40 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Colecoes
+namespace Listas
 {
     class Program
     {
         static void Main(string[] args)
         {
-            //var idades = new int[5];
-            //idades[0] = 20;
+            var alunos = new List<Aluno>();
+            alunos.Add(RetornarAluno(123));
+            alunos.Add(RetornarAluno(125));
 
-            //Lista
-            var idades = new List<int>();
-            idades.Add(20);
-            idades.Add(25);
-            idades.Add(50);
-            idades.Add(55);
+            /*
+            var turma = new Turma();
+            turma.Alunos = alunos;
+            */
 
-            Console.WriteLine($"Tamanho da lista: {idades.Count}");
+            Console.WriteLine($"Tamanho da lista: {alunos.Count}");
 
-            Imprimir(idades);
+            Imprimir(alunos);
 
-            if (idades.Contains(20))
-                Console.WriteLine("A idade 20 está presente.");
+            var b = RetornarAluno(125);
+
+            if (alunos.Contains(b))
+                Console.WriteLine($"O(a) aluno(a) {b.Nome} está presente.");
+
+            //idades.Remove(25);
+            //alunos.RemoveAt(1);
+
+            //Imprimir(alunos);
 
             Console.ReadKey();
         }
 
-        private static void Imprimir(List<int> idades)
+        private static Aluno RetornarAluno(int matricula)
         {
-            Console.WriteLine("Idades informadas: ");
+            if (matricula == 123)
+                return new Aluno { Matricula = 123, Nome = "Ana", Idade = 20 };
+            else if (matricula == 125)
+                return new Aluno { Matricula = 125, Nome = "Bruno", Idade = 21 };
+            else
+                return null;
+        }
 
-            for (int i = 0; i < idades.Count; i++)
-                Console.Write($"{idades[i]}  ");
-            
-            Console.WriteLine();
+        private static void Imprimir(IList<Aluno> alunos)
+        {
+            Console.WriteLine("Alunos informados: ");
+
+            foreach (var a in alunos)
+                Console.WriteLine(a);
+                //Console.WriteLine($"  Nome: {a.Nome}, matrícula: {a.Matricula}, idade: {a.Idade}");
+
+            /*
+            IEnumerable<Aluno> lista = alunos;
+
+            IEnumerator<Aluno> enumerator = lista.GetEnumerator();
+
+            enumerator.Reset();
+
+            while (enumerator.MoveNext())
+                Console.WriteLine($"Nome: {enumerator.Current.Nome} - matrícula: {enumerator.Current.Matricula}");
+            */
         }
     }
 }
