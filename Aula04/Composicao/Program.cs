@@ -40,7 +40,7 @@ namespace Composicao
                 Valor = 123.45
             };
 
-            var fiado = new PagamentoFiado
+            var fiado = new PagamentoFiado(new Pagamento())
             {
                 DataVencimento = hoje.AddDays(30),
                 Consumos = new PagamentoFiadoConsumo[]

@@ -10,6 +10,11 @@ namespace Composicao
         {
             pagamentoInfo = new Pagamento();
         }
+        
+        public PagamentoFiado(IPagamentoInfo pagInfo)
+        {
+            pagamentoInfo = pagInfo;
+        }
 
         public PagamentoFiadoConsumo[] Consumos { get; set; }
 
