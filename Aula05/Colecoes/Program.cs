@@ -8,6 +8,7 @@ namespace Listas
         static void Main(string[] args)
         {
             var alunos = new List<Aluno>();
+
             alunos.Add(RetornarAluno(123));
             alunos.Add(RetornarAluno(125));
 
