@@ -12,7 +12,7 @@ namespace Dicionario
             var p3 = new Produto { Codigo = 3, Descricao = "Sprite", Preco = 5.0 };
 
             var dictProdutos = new Dictionary<int, Produto>();
-
+            
             dictProdutos.Add(p1.Codigo, p1);
             dictProdutos.Add(p2.Codigo, p2);
             dictProdutos.Add(p3.Codigo, p3);
@@ -21,7 +21,7 @@ namespace Dicionario
             int codigo = Convert.ToInt32(Console.ReadLine());
 
             if (dictProdutos.ContainsKey(codigo))
-            { 
+            {
                 var produtoEncontrado = dictProdutos[codigo];
 
                 Imprimir(produtoEncontrado);
@@ -33,6 +33,17 @@ namespace Dicionario
 
             Console.ReadKey();
 
+        }
+
+        private static Produto RetornaDaLista(List<Produto> listaProdutos, int codigo)
+        {
+            foreach (var item in listaProdutos)
+            {
+                if (item.Codigo == codigo)
+                    return item;
+            }
+
+            return null;
         }
 
         private static void Imprimir(Produto produto)
