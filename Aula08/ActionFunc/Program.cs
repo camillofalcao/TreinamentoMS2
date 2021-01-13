@@ -8,6 +8,40 @@ namespace ActionFunc
         {
             Produto[] produtos = RetornarProdutos();
 
+            //TestarActions(produtos);
+
+            TestarFuncs(produtos);
+
+            Console.ReadKey();
+        }
+
+        private static void TestarFuncs(Produto[] produtos)
+        {
+            Console.WriteLine("Produtos iniciados por 'P'");
+            Imprimir(produtos, prod => prod.Descricao.StartsWith('P'));
+
+            Console.WriteLine("Produtos com preço menor que 10");
+            Imprimir(produtos, x => x.Preco < 10);
+
+            //Func<int, int, double> retornaMedia = (int num1, int num2) =>
+            //{
+            //    return (num1 + num2) / 2.0;
+            //};
+
+            //Console.WriteLine(retornaMedia(5, 10));
+        }
+
+        private static void Imprimir(Produto[] produtos, Func<Produto, bool> selecionar)
+        {
+            foreach (var item in produtos)
+            {
+                if (selecionar(item))
+                    Console.WriteLine($"{item.Descricao}, preço: {item.Preco:C2}");
+            }
+        }
+
+        private static void TestarActions(Produto[] produtos)
+        {
             Console.WriteLine("Produtos com preço > R$7,00:");
 
             ExecutarParaCada(produtos, ImprimirSePrecoMaiorQue7);
@@ -31,7 +65,6 @@ namespace ActionFunc
 
             Console.WriteLine($"Temos {qtdeProdutos} produtos.");
 
-            
             ////Action<string, int> meuProcedimento = ImprimirOla;
             //Action<string, int> meuProcedimento = (string nome, int numeroVezes) =>
             //{
@@ -44,8 +77,6 @@ namespace ActionFunc
             //{
             //    Console.WriteLine($"Produto: {produto}, quantidade: {quantidade}");
             //});
-
-            Console.ReadKey();
         }
 
         private static void ImprimirSePrecoMaiorQue7(Produto prod)
