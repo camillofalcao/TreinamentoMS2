@@ -10,13 +10,12 @@ namespace ActionFunc
 
             Console.WriteLine("Produtos com preço > R$7,00:");
 
-            ExecutarParaCada(produtos, prod => 
-            {
-                if (prod.Preco > 7)
-                {
-                    Console.WriteLine($"{prod.Descricao}, {prod.Preco:C2}");
-                }
-            });
+            ExecutarParaCada(produtos, ImprimirSePrecoMaiorQue7);
+            //ExecutarParaCada(produtos, prod => 
+            //{
+            //    if (prod.Preco > 7)
+            //        Console.WriteLine($"{prod.Descricao}, {prod.Preco:C2}");
+            //});
 
             Console.WriteLine("Produtos com descrição iniciada por 'P'");
 
@@ -26,6 +25,13 @@ namespace ActionFunc
                     Console.WriteLine($"{prod.Descricao}");
             });
 
+            int qtdeProdutos = 0;
+
+            ExecutarParaCada(produtos, prod => qtdeProdutos++);
+
+            Console.WriteLine($"Temos {qtdeProdutos} produtos.");
+
+            
             ////Action<string, int> meuProcedimento = ImprimirOla;
             //Action<string, int> meuProcedimento = (string nome, int numeroVezes) =>
             //{
@@ -40,6 +46,12 @@ namespace ActionFunc
             //});
 
             Console.ReadKey();
+        }
+
+        private static void ImprimirSePrecoMaiorQue7(Produto prod)
+        {
+            if (prod.Preco > 7)
+                Console.WriteLine($"{prod.Descricao}, {prod.Preco:C2}");
         }
 
         private static void ExecutarParaCada(Produto[] produtos, Action<Produto> metodoSelecao)
