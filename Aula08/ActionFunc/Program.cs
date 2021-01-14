@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ActionFunc
 {
@@ -7,21 +9,37 @@ namespace ActionFunc
         static void Main(string[] args)
         {
             Produto[] produtos = RetornarProdutos();
+            Cliente[] clientes = RetornarClientes();
 
             //TestarActions(produtos);
 
-            TestarFuncs(produtos);
+            TestarFuncs(produtos, clientes);
 
             Console.ReadKey();
         }
 
-        private static void TestarFuncs(Produto[] produtos)
+        private static void TestarFuncs(Produto[] produtos, Cliente[] clientes)
         {
-            Console.WriteLine("Produtos iniciados por 'P'");
-            Imprimir(produtos, prod => prod.Descricao.StartsWith('P'));
+            var produtosIniciadosPorP = Selecionar(produtos, x => x.Descricao.StartsWith("P"));
 
-            Console.WriteLine("Produtos com preço menor que 10");
-            Imprimir(produtos, x => x.Preco < 10);
+            var produtosComPrecoMaiorQue10 = Selecionar(produtos, x => x.Preco > 10);
+
+            var clientesComNomeTerminadoEmA = Selecionar(clientes, x => x.Nome.EndsWith("a") || x.Nome.EndsWith("A"));
+
+            var vetor = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            var pares = Selecionar<int>(vetor, x => x % 2 == 0);
+
+            var impares = Selecionar(vetor, x => x % 2 != 0);
+
+            Console.ReadKey();
+
+            //Console.WriteLine("Produtos iniciados por 'P'");
+            //Imprimir(produtos, prod => prod.Descricao.StartsWith('P'));
+
+            //Console.WriteLine("Produtos com preço menor que 10");
+            //Imprimir(produtos, x => x.Preco < 10);
+
 
             //Func<int, int, double> retornaMedia = (int num1, int num2) =>
             //{
@@ -29,6 +47,17 @@ namespace ActionFunc
             //};
 
             //Console.WriteLine(retornaMedia(5, 10));
+        }
+
+        private static IEnumerable<T> Selecionar<T>(IEnumerable<T> objetos, Func<T, bool> selecionar)
+        {
+            var resultados = new List<T>();
+
+            foreach (var obj in objetos)
+                if (selecionar(obj))
+                    resultados.Add(obj);
+
+            return resultados;
         }
 
         private static void Imprimir(Produto[] produtos, Func<Produto, bool> selecionar)
@@ -91,6 +120,18 @@ namespace ActionFunc
             {
                 metodoSelecao(item);
             }
+        }
+
+        private static Cliente[] RetornarClientes()
+        {
+            return new Cliente[]
+            {
+                new Cliente { Nome = "Ana" },
+                new Cliente { Nome = "Bruno" },
+                new Cliente { Nome = "Carlos" },
+                new Cliente { Nome = "Daniela" },
+                new Cliente { Nome = "Evandro" }
+            };
         }
 
         private static Produto[] RetornarProdutos()
