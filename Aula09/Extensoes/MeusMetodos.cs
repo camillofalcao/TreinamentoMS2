@@ -4,8 +4,28 @@ using System.Text;
 
 namespace Extensoes
 {
-    static class MeusMetodos
+    public static class MeusMetodos
     {
+        public static IEnumerable<TRetorno> Transformar<TOrigem, TRetorno>(this IEnumerable<TOrigem> objetos, Func<TOrigem, TRetorno> transformar)
+        {
+            var listaRetorno = new List<TRetorno>();
+
+            foreach (var item in objetos)
+                listaRetorno.Add(transformar(item));
+            
+            return listaRetorno;
+        }
+
+        public static int Soma(this IEnumerable<int> numeros)
+        {
+            var soma = 0;
+
+            foreach (var num in numeros)
+                soma += num;
+
+            return soma;
+        }
+
         public static IEnumerable<T> Selecionar<T>(this IEnumerable<T> objetos, Func<T, bool> selecionar)
         {
             var resultados = new List<T>();
