@@ -8,7 +8,68 @@ namespace Linq2
     {
         static void Main(string[] args)
         {
+            var pedidos = RetornarPedidos();
+
+            ImprimirPedidos("Lista de pedidos", pedidos);
+
+            var pedidosAcima50 = from x in pedidos where x.Total > 50 select x;
             
+            ImprimirPedidos("Lista de pedidos com preço acima de 50", pedidosAcima50);
+
+            var pedidosPorCliente = from x in pedidos
+                                    group x by x.Cliente into grupo
+                                    select grupo;
+
+            ImprimirAgrupado(pedidosPorCliente);
+
+            var totalPorCliente =   from x in pedidos
+                                    group new { Numero = x.Numero, Total = x.Total } 
+                                    by x.Cliente.Nome 
+                                    into grupo 
+                                    select new { NomeCliente = grupo.Key, Total = grupo.Sum(x => x.Total) };
+
+            Console.WriteLine("=====================================================");
+
+            Console.WriteLine("Total por cliente:");
+
+            foreach (var grupo in totalPorCliente)
+                Console.WriteLine($"{grupo.NomeCliente}: {grupo.Total:C2}");
+            
+            
+            Console.ReadKey();
+        }
+
+        private static void ImprimirAgrupado(IEnumerable<IGrouping<Cliente, Pedido>> pedidosAgrupados)
+        {
+            Console.WriteLine("Pedidos agrupados por cliente:");
+
+            foreach (var grupo in pedidosAgrupados)
+            {
+                Console.WriteLine($"Grupo: {grupo.Key.Nome}");
+
+                foreach (var pedido in grupo)
+                {
+                    Console.WriteLine($"Pedido: {pedido.Numero}, Valor Total: {pedido.Total:C2}");
+                }
+            }    
+        }
+
+        private static void ImprimirPedidos(string mensagem, IEnumerable<Pedido> pedidos)
+        {
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine(mensagem + ":");
+            
+            foreach (var ped in pedidos)
+            {
+                Console.WriteLine("-----------------------------------------------------"); 
+                Console.WriteLine($"Pedido: {ped.Numero}, Valor Total: {ped.Total:C2}, cliente: {ped.Cliente.Nome}");
+
+                foreach (var item in ped.Itens)
+                    Console.WriteLine($"   {item.Produto.Descricao}: {item.Quantidade} x {item.Produto.Preco:C2} = {item.SubTotal:C2}");
+                
+            }
+
+            Console.WriteLine("=====================================================");
         }
 
         private static IEnumerable<Pedido> RetornarPedidos()
@@ -49,7 +110,7 @@ namespace Linq2
                      Cliente = c1,
                      Itens = new List<PedidoItem>
                      {
-                         new PedidoItem { Produto = p1, Quantidade = 3 }
+                         new PedidoItem { Produto = p3, Quantidade = 1 }
                      }
                 },
             };
