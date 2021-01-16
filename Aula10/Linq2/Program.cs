@@ -10,6 +10,11 @@ namespace Linq2
         {
             var pedidos = RetornarPedidos();
 
+            var soma = pedidos.Sum(x => x.Total);
+            var media = pedidos.Average(x => x.Total);
+            var primeiro = pedidos.First();
+            var ultimo = pedidos.Last();
+
             ImprimirPedidos("Lista de pedidos", pedidos);
 
             var pedidosAcima50 = from x in pedidos where x.Total > 50 select x;
