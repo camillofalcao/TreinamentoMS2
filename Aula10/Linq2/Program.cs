@@ -40,7 +40,6 @@ namespace Linq2
             foreach (var grupo in totalPorCliente)
                 Console.WriteLine($"{grupo.NomeCliente}: {grupo.Total:C2}");
             
-            
             Console.ReadKey();
         }
 
