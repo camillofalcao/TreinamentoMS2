@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace EntityFrameworkEDAO.Models
+namespace TesteAttributes
 {
     class Produto
     {
-        public string ProdutoId { get; set; }
+        [Titulo("Código")]
         public int Codigo { get; set; }
-
-        [Required]
+        [Titulo("Descrição")]
         public string Descricao { get; set; }
+        [Titulo("Preço")]
         public double Preco { get; set; }
     }
 }
