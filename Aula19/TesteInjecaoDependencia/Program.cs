@@ -8,12 +8,14 @@ namespace TesteInjecaoDependencia
         {
             string nome;
 
-            Console.Write("Informe o seu nome: ");
-            nome = Console.ReadLine();
+            for (int i = 0; i < 2; i++)
+            {
+                Console.Write("Informe o seu nome: ");
+                nome = Console.ReadLine();
 
-            var recepcao = Instancia.Get<IRecepcao>();
-            recepcao.Recepcionar(nome);
-
+                var recepcao = Instancia.Get<IRecepcao>();
+                recepcao.Recepcionar(nome);
+            }
             Console.ReadKey();
         }
     }

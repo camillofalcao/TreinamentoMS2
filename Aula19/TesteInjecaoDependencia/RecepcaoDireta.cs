@@ -7,7 +7,7 @@ namespace TesteInjecaoDependencia
     class RecepcaoDireta : IRecepcao
     {
         public RecepcaoDireta(ISaudacao saudacao) => this.saudacao = saudacao;
-
+        
         public void Recepcionar(string nome)
         {
             Cumprimentar(nome);
